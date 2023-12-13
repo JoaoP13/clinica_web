@@ -39,3 +39,17 @@ declare interface ListEnderecoPosssibleFilters{
     estado?: number;
     nomeEndereco?: number;
 }
+
+declare interface CreateClinica{
+    idEndereco: number;
+    nome: string;
+    telefone: number;
+    cnpj: number;
+}
+
+declare interface ListClinicaPosssibleFilters{
+    idEndereco?: number;
+    nome?: string;
+    telefone?: number;
+    cnpj?: number;
+}
