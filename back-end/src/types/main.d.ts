@@ -35,6 +35,14 @@ declare interface CreateEspecialidade{
     percentualMedico: number;
 }
 
+declare interface CreateClinica{
+    idEndereco: number;
+    nome: string;
+    telefone: number;
+    cnpj: number;
+}
+
+
 //ListObjects by Filters
 
 declare interface ListEnderecoPosssibleFilters{
@@ -44,13 +52,6 @@ declare interface ListEnderecoPosssibleFilters{
     cidade?: number;
     estado?: number;
     nomeEndereco?: number;
-}
-
-declare interface CreateClinica{
-    idEndereco: number;
-    nome: string;
-    telefone: number;
-    cnpj: number;
 }
 
 declare interface ListClinicaPosssibleFilters{
