@@ -1,47 +1,52 @@
-
 import { Model } from 'sequelize';
 
-interface MedicoAttributes {
+interface EnderecoPessoalAttributes {
     id: number;
-    idEspecialidade: number;
-    crm: number;
+    idEndereco: number;
+    idPessoa: number;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-    class Medico extends Model<MedicoAttributes>
-        implements MedicoAttributes {
+    class EnderecoPessoal extends Model<EnderecoPessoalAttributes>
+        implements EnderecoPessoalAttributes {
         id!: number;
-        idEspecialidade!: number;
-        crm!: number;
+        idEndereco!: number;
+        idPessoa!: number;
         createdAt!: Date;
         updatedAt!: Date;
         deletedAt!: Date;
 
         static associate(models: any) {
-            Medico.belongsTo(models.Especialidade, {
-                foreignKey: 'id_especialidade',
-                as: 'especialidade'
+            EnderecoPessoal.belongsTo(models.Pessoa, {
+                foreignKey: 'idPessoa',
+                as: 'Pessoa'
             });
+
+            EnderecoPessoal.belongsTo(models.Endereco, {
+                foreignKey: 'idEndereco',
+                as: 'Endereco'
+            });
+
         }
     }
 
-    Medico.init({
+    EnderecoPessoal.init({
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        idEspecialidade: {
+        idEndereco: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        crm: {
+        idPessoa: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         createdAt: {
             type: DataTypes.DATE,
@@ -59,8 +64,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
         sequelize,
         timestamps: true,
         paranoid: true,
-        modelName: 'Medico',
+        modelName: 'EnderecoPessoa',
         freezeTableName: true
     });
-    return Medico;
+    return EnderecoPessoal;
 };

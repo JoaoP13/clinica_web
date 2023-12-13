@@ -1,47 +1,52 @@
-
 import { Model } from 'sequelize';
 
-interface MedicoAttributes {
+interface EspecialidadeAttributes {
     id: number;
-    idEspecialidade: number;
-    crm: number;
+    idProntuario: number;
+    idPessoa: number;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-    class Medico extends Model<MedicoAttributes>
-        implements MedicoAttributes {
+    class Especialidade extends Model<EspecialidadeAttributes>
+        implements EspecialidadeAttributes {
         id!: number;
-        idEspecialidade!: number;
-        crm!: number;
+        idProntuario!: number;
+        idPessoa!: number;
         createdAt!: Date;
         updatedAt!: Date;
         deletedAt!: Date;
 
         static associate(models: any) {
-            Medico.belongsTo(models.Especialidade, {
-                foreignKey: 'id_especialidade',
-                as: 'especialidade'
+            Especialidade.belongsTo(models.Pessoa, {
+                foreignKey: 'idPessoa',
+                as: 'Pessoa'
             });
+
+            Especialidade.belongsTo(models.Prontuario, {
+                foreignKey: 'idProntuario',
+                as: 'Prontuario'
+            });
+
         }
     }
 
-    Medico.init({
+    Especialidade.init({
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        idEspecialidade: {
+        idProntuario: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        crm: {
+        idPessoa: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         createdAt: {
             type: DataTypes.DATE,
@@ -59,8 +64,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
         sequelize,
         timestamps: true,
         paranoid: true,
-        modelName: 'Medico',
+        modelName: 'Especialidade',
         freezeTableName: true
     });
-    return Medico;
+    return Especialidade;
 };
