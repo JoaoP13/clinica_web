@@ -1,6 +1,7 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
+const Endereco = require('./20231212225842-Endereco')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
@@ -19,7 +20,13 @@ module.exports = {
                  key: 'id',
               }
             },
-
+            idPessoa: {
+              type: Sequelize.INTEGER,
+              references: {
+                 model: 'Pessoa',
+                 key: 'id',
+              }
+            },
             createdAt: {
                 type: Sequelize.DATE,
                 allowNull: false,
@@ -33,7 +40,7 @@ module.exports = {
                 allowNull: true,
             }
         });
-        Paciente.hasMany(Prontuario);
+        
 
     } catch (error) {
         await transaction.rollback();

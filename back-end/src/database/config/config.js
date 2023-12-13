@@ -2,10 +2,10 @@ require('dotenv').config();
 
 module.exports = {
     development: {
-        database: process.env.PSQL_DATABASE_DEV,
-        username: process.env.PSQL_DATABASE_USER_DEV,
-        password: process.env.PSQL_DATABASE_PASSWORD_DEV,
-        host: process.env.PSQL_DATABASE_HOST_DEV,
+        database: 'ClinicDataBase',
+        username: 'postgres',
+        password: '1997',
+        host: 'localhost',
         dialect: 'postgresql',
         seederStorage: 'sequelize',
         seederStorageTableName: 'SeedersMeta'

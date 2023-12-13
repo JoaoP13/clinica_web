@@ -1,6 +1,10 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
+const Medico = require('./20231213005554-Medico')
+const Especialidade = require('./20231213001520-Especialidade')
+const Paciente = require('./20231213004157-Paciente')
+const Clinica = require('./20231213004527-Clinica')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
@@ -61,9 +65,7 @@ module.exports = {
                 allowNull: true,
             }
         });
-        Consulta.hasMany(Paciente);
-        Consulta.hasMany(Especialidade);
-        Consulta.hasMany(Clinica);
+        
 
         await transaction.commit();
     } catch (error) {

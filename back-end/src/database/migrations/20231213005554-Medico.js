@@ -1,6 +1,7 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
+const Especialidade = require('./20231213001520-Especialidade')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
@@ -37,7 +38,7 @@ module.exports = {
                 allowNull: true,
             }
         });
-        Medico.hasMany(Especialidade);
+        
 
         await queryInterface.addConstraint('Medico', {
             fields: ['crm'],

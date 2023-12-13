@@ -1,6 +1,8 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
+const Cargo = require('./20231212192628-Cargo')
+const Clinica = require('./20231213004527-Clinica')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
@@ -15,6 +17,13 @@ module.exports = {
             salario: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
+            },
+            idPessoa: {
+              type: Sequelize.INTEGER,
+              references: {
+                 model: 'Pessoa',
+                 key: 'id',
+              }
             },
             idCargo: {
               type: Sequelize.INTEGER,
@@ -44,8 +53,7 @@ module.exports = {
                 allowNull: true,
             }
         });
-        Funcionario.hasMany(Cargo);
-        Funcionario.hasMany(Clinica);
+        
 
         await transaction.commit();
     } catch (error) {

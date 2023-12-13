@@ -1,3 +1,5 @@
+/// <reference path="../types/main.d.ts" />
+
 import { Request, Response } from 'express';
 import BasicController from './basic.controller';
 import PessoaService from '../service/pessoa.service';

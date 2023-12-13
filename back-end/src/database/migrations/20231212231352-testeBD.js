@@ -27,11 +27,7 @@ module.exports = {
                 senha: {
                   type: Sequelize.STRING(150),
                   allowNull: false,
-               },
-               telefone: {
-                type: Sequelize.STRING(150),
-                allowNull: false,
-             },
+              },
                 createdAt: {
                     type: Sequelize.DATE,
                     allowNull: false,

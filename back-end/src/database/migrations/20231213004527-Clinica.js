@@ -1,6 +1,7 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
+const Prontuario = require('./20231213003751-Prontuario')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
@@ -48,7 +49,7 @@ module.exports = {
                 allowNull: true,
             }
         });
-        Clinica.hasMany(Endereco);
+        
 
         await queryInterface.addConstraint('Clinica', {
           fields: ['cnpj'],

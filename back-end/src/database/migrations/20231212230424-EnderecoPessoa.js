@@ -1,11 +1,13 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
+const Pessoa = require('./20231212034252-criando-tabela-pessoa')
+const Endereco = require('./20231212225842-Endereco')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-        await queryInterface.createTable('Pessoa', {
+        await queryInterface.createTable('EnderecoPessoa', {
             id: {
                 type: Sequelize.INTEGER,
                 autoIncrement: true,
@@ -17,7 +19,8 @@ module.exports = {
               references: {
                  model: 'Pessoa',
                  key: 'id',
-              }
+              },
+              allowNull: false
             },
 
             createdAt: {
@@ -33,7 +36,7 @@ module.exports = {
                 allowNull: true,
             }
         });
-        Pessoa.hasMany(Endereco);
+        
 
     } catch (error) {
         await transaction.rollback();
