@@ -1,6 +1,6 @@
 /// <reference path="../types/main.d.ts" />
 import { Request, Response } from 'express';
-import ClinicaService from '../service/clinica.servive';
+import ClinicaService from '../service/clinica.service';
 
 class ClinicaController {
     clinicaService: ClinicaService;
