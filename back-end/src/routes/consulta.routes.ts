@@ -1,11 +1,12 @@
 /// <reference path="../types/main.d.ts" />
 import express from 'express';
+import { authMiddleware } from '../middleware/authMiddleware';
 import ConsultaController from '../controller/endereco.controller';
 
 
 const enderecoRouter: express.Router = express.Router();
 
-enderecoRouter.post('/create', async (request: express.Request, response: express.Response): Promise<any> => {
+enderecoRouter.post('/create', authMiddleware, async (request: express.Request, response: express.Response): Promise<any> => {
     try {
         
         const consultaController: ConsultaController = new ConsultaController(request, response);
