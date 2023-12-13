@@ -1,28 +1,27 @@
 /// <reference path="../types/main.d.ts" />
 import { Request, Response } from 'express';
-import FuncionarioService from '../service/funcionario.service';
+import MedicoService from '../service/medico.service';
 
-class FuncionarioController {
-    funcionarioService: FuncionarioService;
+class MedicoController {
+    medicoService: MedicoService;
     request: Request;
     response: Response;
     model!: string;
 
     public constructor(req: Request, res: Response) {
-        this.funcionarioService = new FuncionarioService();
+        this.medicoService = new MedicoService();
         this.request = req;
         this.response = res;
     }
 
     async create(): Promise<object[] | object> {
         try {
-            const funcionarioModel: CreateFuncionario = {
-                salario: this.request.body.salario,
-                idCargo: this.request.body.idCargo,
-                idClinica: this.request.body.idClinica,
+            const medicoModel: CreateMedico = {
+                idEspecialidade: this.request.body.idEspecialidade,
+                crm: this.request.body.crm,
             }
             
-            const result = await this.funcionarioService.create(funcionarioModel);
+            const result = await this.medicoService.create(medicoModel);
 
             return result;
         } catch (err: any) {
@@ -38,7 +37,7 @@ class FuncionarioController {
 
     async list(): Promise<object[] | object> {
         try {
-            const result = await this.funcionarioService.list();
+            const result = await this.medicoService.list();
 
             return result;
         } catch (err: any) {
@@ -54,12 +53,11 @@ class FuncionarioController {
     async getByFilters(): Promise<object[] | object> {
 
         try {
-            const funcionarioFilters: ListFuncionarioPosssibleFilters = {
-                salario: this.request.body.salario,
-                idCargo: this.request.body.idCargo,
-                idClinica: this.request.body.idClinica,
+            const medicoFilters: ListMedicoPosssibleFilters = {
+                idEspecialidade: this.request.body.idEspecialidade,
+                crm: this.request.body.crm,
             }
-            const result = await this.funcionarioService.getByFilters(funcionarioFilters);
+            const result = await this.medicoService.getByFilters(medicoFilters);
 
             return result;
         } catch (err: any) {
@@ -74,18 +72,16 @@ class FuncionarioController {
     }
     async update(): Promise<object[] | object> {
         try {
-            const funcionarioModel: CreateFuncionario = {
-                salario: this.request.body.salario,
-                idCargo: this.request.body.idCargo,
-                idClinica: this.request.body.idClinica,
+            const medicoModel: CreateMedico = {
+                idEspecialidade: this.request.body.idEspecialidade,
+                crm: this.request.body.crm,
             }
-            const funcionarioFilters: ListFuncionarioPosssibleFilters = {
-                salario: this.request.body.salario,
-                idCargo: this.request.body.idCargo,
-                idClinica: this.request.body.idClinica,
+            const medicoFilters: ListMedicoPosssibleFilters = {
+                idEspecialidade: this.request.body.idEspecialidade,
+                crm: this.request.body.crm,
             }
             
-            const result = await this.funcionarioService.update(funcionarioModel,funcionarioFilters);
+            const result = await this.medicoService.update(medicoModel,medicoFilters);
 
             return result;
         } catch (err: any) {
@@ -100,13 +96,12 @@ class FuncionarioController {
     }
     async delete(): Promise<void | object> {
         try {
-            const funcionarioFilters: ListFuncionarioPosssibleFilters = {
-                salario: this.request.body.salario,
-                idCargo: this.request.body.idCargo,
-                idClinica: this.request.body.idClinica,
+            const medicoFilters: ListMedicoPosssibleFilters = {
+                idEspecialidade: this.request.body.idEspecialidade,
+                crm: this.request.body.crm,
             }
             
-            const result = await this.funcionarioService.delete(funcionarioFilters);
+            const result = await this.medicoService.delete(medicoFilters);
             
         } catch (err: any) {
 
@@ -119,4 +114,4 @@ class FuncionarioController {
     }
 }
 
-export default FuncionarioController;
+export default MedicoController;
