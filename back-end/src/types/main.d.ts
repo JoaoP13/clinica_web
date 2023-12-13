@@ -95,3 +95,13 @@ declare interface ListEspecialidadePosssibleFilters{
     idEspecialidade?: number;
     idClinica?: number
  }
+
+declare interface CreateMedico{
+    idEspecialidade: number;
+    crm: number;
+}
+
+declare interface ListMedicoPosssibleFilters{
+    idEspecialidade?: number;
+    crm?: number;
+}

@@ -1,6 +1,6 @@
 /// <reference path="../types/main.d.ts" />
 import { Request, Response } from 'express';
-import EnderecoService from '../service/endereco.servive';
+import EnderecoService from '../service/endereco.service';
 
 class EnderecoController {
     enderecoService: EnderecoService;
@@ -17,12 +17,12 @@ class EnderecoController {
     async create(): Promise<object[] | object> {
         try {
             const enderecoModel: CreateEndereco = {
-                logradouro: this.request.body.nome,
-                complemento: this.request.body.email,
-                bairro: this.request.body.data_nascimento,
-                cidade: this.request.body.senha,
-                estado: this.request.body.telefone,
-                nomeEndereco: this.request.body.cpf
+                logradouro: this.request.body.logradouro,
+                complemento: this.request.body.complemento,
+                bairro: this.request.body.bairro,
+                cidade: this.request.body.cidade,
+                estado: this.request.body.estado,
+                nomeEndereco: this.request.body.nomeEndereco
             }
             
             const result = await this.enderecoService.create(enderecoModel);
@@ -58,12 +58,12 @@ class EnderecoController {
 
         try {
             const enderecoFilters: ListEnderecoPosssibleFilters = {
-                logradouro: this.request.body.nome,
-                complemento: this.request.body.email,
-                bairro: this.request.body.data_nascimento,
-                cidade: this.request.body.senha,
-                estado: this.request.body.telefone,
-                nomeEndereco: this.request.body.cpf
+                logradouro: this.request.body.logradouro,
+                complemento: this.request.body.complemento,
+                bairro: this.request.body.bairro,
+                cidade: this.request.body.cidade,
+                estado: this.request.body.estado,
+                nomeEndereco: this.request.body.nomeEndereco
             }
             const result = await this.enderecoService.getByFilters(enderecoFilters);
 
@@ -81,20 +81,20 @@ class EnderecoController {
     async update(): Promise<object[] | object> {
         try {
             const enderecoModel: CreateEndereco = {
-                logradouro: this.request.body.nome,
-                complemento: this.request.body.email,
-                bairro: this.request.body.data_nascimento,
-                cidade: this.request.body.senha,
-                estado: this.request.body.telefone,
-                nomeEndereco: this.request.body.cpf
+                logradouro: this.request.body.logradouro,
+                complemento: this.request.body.complemento,
+                bairro: this.request.body.bairro,
+                cidade: this.request.body.cidade,
+                estado: this.request.body.estado,
+                nomeEndereco: this.request.body.nomeEndereco
             }
             const enderecoFilters: ListEnderecoPosssibleFilters = {
-                logradouro: this.request.body.nome,
-                complemento: this.request.body.email,
-                bairro: this.request.body.data_nascimento,
-                cidade: this.request.body.senha,
-                estado: this.request.body.telefone,
-                nomeEndereco: this.request.body.cpf
+                logradouro: this.request.body.logradouro,
+                complemento: this.request.body.complemento,
+                bairro: this.request.body.bairro,
+                cidade: this.request.body.cidade,
+                estado: this.request.body.estado,
+                nomeEndereco: this.request.body.nomeEndereco
             }
             
             const result = await this.enderecoService.update(enderecoModel,enderecoFilters);
@@ -113,12 +113,12 @@ class EnderecoController {
     async delete(): Promise<void | object> {
         try {
             const enderecoFilters: ListEnderecoPosssibleFilters = {
-                logradouro: this.request.body.nome,
-                complemento: this.request.body.email,
-                bairro: this.request.body.data_nascimento,
-                cidade: this.request.body.senha,
-                estado: this.request.body.telefone,
-                nomeEndereco: this.request.body.cpf
+                logradouro: this.request.body.logradouro,
+                complemento: this.request.body.complemento,
+                bairro: this.request.body.bairro,
+                cidade: this.request.body.cidade,
+                estado: this.request.body.estado,
+                nomeEndereco: this.request.body.nomeEndereco
             }
             
             const result = await this.enderecoService.delete(enderecoFilters);

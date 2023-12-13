@@ -1,29 +1,27 @@
 /// <reference path="../types/main.d.ts" />
 import { Request, Response } from 'express';
-import ClinicaService from '../service/clinica.service';
+import MedicoService from '../service/medico.service';
 
-class ClinicaController {
-    clinicaService: ClinicaService;
+class MedicoController {
+    medicoService: MedicoService;
     request: Request;
     response: Response;
     model!: string;
 
     public constructor(req: Request, res: Response) {
-        this.clinicaService = new ClinicaService();
+        this.medicoService = new MedicoService();
         this.request = req;
         this.response = res;
     }
 
     async create(): Promise<object[] | object> {
         try {
-            const clinicaModel: CreateClinica = {
-                idEndereco: this.request.body.idEndereco,
-                nome: this.request.body.nome,
-                telefone: this.request.body.telefone,
-                cnpj: this.request.body.cnpj,
+            const medicoModel: CreateMedico = {
+                idEspecialidade: this.request.body.idEspecialidade,
+                crm: this.request.body.crm,
             }
             
-            const result = await this.clinicaService.create(clinicaModel);
+            const result = await this.medicoService.create(medicoModel);
 
             return result;
         } catch (err: any) {
@@ -39,7 +37,7 @@ class ClinicaController {
 
     async list(): Promise<object[] | object> {
         try {
-            const result = await this.clinicaService.list();
+            const result = await this.medicoService.list();
 
             return result;
         } catch (err: any) {
@@ -55,13 +53,11 @@ class ClinicaController {
     async getByFilters(): Promise<object[] | object> {
 
         try {
-            const clinicaFilters: ListClinicaPosssibleFilters = {
-                idEndereco: this.request.body.idEndereco,
-                nome: this.request.body.nome,
-                telefone: this.request.body.telefone,
-                cnpj: this.request.body.cnpj,
+            const medicoFilters: ListMedicoPosssibleFilters = {
+                idEspecialidade: this.request.body.idEspecialidade,
+                crm: this.request.body.crm,
             }
-            const result = await this.clinicaService.getByFilters(clinicaFilters);
+            const result = await this.medicoService.getByFilters(medicoFilters);
 
             return result;
         } catch (err: any) {
@@ -76,20 +72,16 @@ class ClinicaController {
     }
     async update(): Promise<object[] | object> {
         try {
-            const clinicaModel: CreateClinica = {
-                idEndereco: this.request.body.idEndereco,
-                nome: this.request.body.nome,
-                telefone: this.request.body.telefone,
-                cnpj: this.request.body.cnpj,
+            const medicoModel: CreateMedico = {
+                idEspecialidade: this.request.body.idEspecialidade,
+                crm: this.request.body.crm,
             }
-            const clinicaFilters: ListClinicaPosssibleFilters = {
-                idEndereco: this.request.body.idEndereco,
-                nome: this.request.body.nome,
-                telefone: this.request.body.telefone,
-                cnpj: this.request.body.cnpj,
+            const medicoFilters: ListMedicoPosssibleFilters = {
+                idEspecialidade: this.request.body.idEspecialidade,
+                crm: this.request.body.crm,
             }
             
-            const result = await this.clinicaService.update(clinicaModel,clinicaFilters);
+            const result = await this.medicoService.update(medicoModel,medicoFilters);
 
             return result;
         } catch (err: any) {
@@ -104,14 +96,12 @@ class ClinicaController {
     }
     async delete(): Promise<void | object> {
         try {
-            const clinicaFilters: ListClinicaPosssibleFilters = {
-                idEndereco: this.request.body.idEndereco,
-                nome: this.request.body.nome,
-                telefone: this.request.body.telefone,
-                cnpj: this.request.body.cnpj,
+            const medicoFilters: ListMedicoPosssibleFilters = {
+                idEspecialidade: this.request.body.idEspecialidade,
+                crm: this.request.body.crm,
             }
             
-            const result = await this.clinicaService.delete(clinicaFilters);
+            const result = await this.medicoService.delete(medicoFilters);
             
         } catch (err: any) {
 
@@ -124,4 +114,4 @@ class ClinicaController {
     }
 }
 
-export default ClinicaController;
+export default MedicoController;

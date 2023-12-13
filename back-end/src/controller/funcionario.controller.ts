@@ -1,6 +1,6 @@
 /// <reference path="../types/main.d.ts" />
 import { Request, Response } from 'express';
-import FuncionarioService from '../service/funcionario.servive';
+import FuncionarioService from '../service/funcionario.service';
 
 class FuncionarioController {
     funcionarioService: FuncionarioService;
