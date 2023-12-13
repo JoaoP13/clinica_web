@@ -1,6 +1,5 @@
 /// <reference path="../types/main.d.ts" />
 import { Request, Response } from 'express';
-import PacienteService from '../service/paciente.service';
 import EnderecoService from '../service/endereco.servive';
 
 class EnderecoController {

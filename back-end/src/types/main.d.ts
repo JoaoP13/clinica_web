@@ -29,6 +29,12 @@ declare interface CreateEndereco{
     nomeEndereco: number;
 }
 
+declare interface CreateEspecialidade{
+    nome: string;
+    valorConsulta: number;
+    percentualMedico: number;
+}
+
 //ListObjects by Filters
 
 declare interface ListEnderecoPosssibleFilters{
@@ -38,4 +44,10 @@ declare interface ListEnderecoPosssibleFilters{
     cidade?: number;
     estado?: number;
     nomeEndereco?: number;
+}
+
+declare interface ListEspecialidadePosssibleFilters{
+    nome?: string;
+    valorConsulta?: number;
+    percentualMedico?: number;
 }

@@ -9,5 +9,6 @@ const router: Router = Router();
 router.use('/pessoa', pessoaRouter);
 router.use('/paciente', pacienteRouter);
 router.use('/endereco', enderecoRouter);
+router.use('/especialidade', enderecoRouter);
 
 export default router;
