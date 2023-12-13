@@ -46,6 +46,32 @@ declare interface ListEnderecoPosssibleFilters{
     nomeEndereco?: number;
 }
 
+declare interface CreateClinica{
+    idEndereco: number;
+    nome: string;
+    telefone: number;
+    cnpj: number;
+}
+
+declare interface ListClinicaPosssibleFilters{
+    idEndereco?: number;
+    nome?: string;
+    telefone?: number;
+    cnpj?: number;
+}
+
+declare interface CreateFuncionario{
+    salario: number;
+    idCargo: number;
+    idClinica: number;
+}
+
+declare interface ListFuncionarioPosssibleFilters{
+    salario?: number;
+    idCargo?: number;
+    idClinica?: number;
+}
+
 declare interface ListEspecialidadePosssibleFilters{
     nome?: string;
     valorConsulta?: number;
