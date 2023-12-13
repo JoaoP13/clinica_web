@@ -13,6 +13,7 @@ class PacienteController {
         this.request = req;
         this.response = res;
     }
+
     async create(): Promise<object[] | object> {
         try {
             const pessoaModel: CreatePessoa = {
@@ -20,7 +21,8 @@ class PacienteController {
                 email: this.request.body.email,
                 data_nascimento: this.request.body.data_nascimento,
                 senha: this.request.body.senha,
-                telefone: this.request.body.telefone
+                telefone: this.request.body.telefone,
+                cpf: this.request.body.cpf
             }
             const prontuarioModel: CreateProntuario = {
                 anamnese: "sem informação",
@@ -43,9 +45,10 @@ class PacienteController {
             };
         }
     }
-    async list(model: any = undefined): Promise<object[] | object> {
+
+    async list(): Promise<object[] | object> {
         try {
-            const result = await this.pacienteService.list(this.model || model);
+            const result = await this.pacienteService.list();
 
             return result;
         } catch (err: any) {
@@ -58,10 +61,56 @@ class PacienteController {
             };
         }
     }
+    async getByCpf(cpf: string): Promise<object[] | object> {
 
-    async delete(model: any = undefined, filters: object = {}): Promise<void | object> {
         try {
-            await this.pacienteService.delete(this.model || model, filters);
+            const result = await this.pacienteService.getByCpf(cpf);
+
+            return result;
+        } catch (err: any) {
+            
+            return {
+                errors: err.erros || [],
+                message: err.message,
+                status: 400,
+                errorType: err?.errorType
+            };
+        }
+    }
+    async update(): Promise<object[] | object> {
+        try {
+            const pessoaModel: CreatePessoa = {
+                nome: this.request.body.nome,
+                email: this.request.body.email,
+                data_nascimento: this.request.body.data_nascimento,
+                senha: this.request.body.senha,
+                telefone: this.request.body.telefone,
+                cpf: this.request.body.cpf
+            }
+            const prontuarioModel: CreateProntuario = {
+                anamnese: "sem informação",
+                medicamentosAdministrados: "sem informação",
+                pressaoArterial: 0,
+                glicemia: 0,
+                peso: 0,
+                altura: 0,
+            }
+            const result = await this.pacienteService.create(pessoaModel,prontuarioModel);
+
+            return result;
+        } catch (err: any) {
+            
+            return {
+                errors: err.erros || [],
+                message: err.message,
+                status: 400,
+                errorType: err?.errorType
+            };
+        }
+    }
+    async delete(cpf: string): Promise<void | object> {
+        try {
+            await this.pacienteService.delete(cpf );
             
         } catch (err: any) {
 

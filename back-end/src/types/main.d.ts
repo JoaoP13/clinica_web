@@ -7,6 +7,7 @@ declare interface CreatePessoa {
     data_nascimento: Date;
     senha: string;
     telefone: string;
+    cpf: string;
 }
 
 declare interface CreateProntuario {

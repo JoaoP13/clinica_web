@@ -1,62 +1,50 @@
 import { Model } from 'sequelize';
 
-interface ProntuarioAttributes {
+interface PacienteAttributes {
     id: number;
-    anamnese: string;
-    medicamentosAdministrados: string;
-    pressaoArterial: number;
-    glicemia: number;
-    peso: number;
-    altura: number;
+    idProntuario: number;
+    idPessoa: number;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-    class Prontuario extends Model<ProntuarioAttributes>
-        implements ProntuarioAttributes {
+    class Paciente extends Model<PacienteAttributes>
+        implements PacienteAttributes {
         id!: number;
-        anamnese!: string;
-        medicamentosAdministrados!: string;
-        pressaoArterial!: number;
-        glicemia!: number;
-        peso!: number;
-        altura!: number;
+        idProntuario!: number;
+        idPessoa!: number;
         createdAt!: Date;
         updatedAt!: Date;
         deletedAt!: Date;
 
+        static associate(models: any) {
+            Paciente.belongsTo(models.Pessoa, {
+                foreignKey: 'idPessoa',
+                as: 'Pessoa'
+            });
+
+            Paciente.belongsTo(models.Prontuario, {
+                foreignKey: 'idProntuario',
+                as: 'Prontuario'
+            });
+
+        }
     }
 
-    Prontuario.init({
+    Paciente.init({
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        anamnese: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        medicamentosAdministrados: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-        pressaoArterial: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        glicemia: {
+        idProntuario: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        peso: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        altura: {
+        idPessoa: {
             type: DataTypes.INTEGER,
             allowNull: true
         },
@@ -76,8 +64,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
         sequelize,
         timestamps: true,
         paranoid: true,
-        modelName: 'Prontuario',
+        modelName: 'Paciente',
         freezeTableName: true
     });
-    return Prontuario;
+    return Paciente;
 };

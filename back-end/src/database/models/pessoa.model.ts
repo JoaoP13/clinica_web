@@ -7,6 +7,7 @@ interface PessoaAttributes {
     data_nascimento: Date;
     senha: string;
     telefone: string;
+    cpf: string;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
@@ -21,6 +22,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         data_nascimento!: Date;
         senha!: string;
         telefone!: string;
+        cpf!: string;
         createdAt!: Date;
         updatedAt!: Date;
         deletedAt!: Date;
@@ -57,6 +59,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
             allowNull: false
         },
         telefone: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        cpf: {
             type: DataTypes.STRING,
             allowNull: true
         },

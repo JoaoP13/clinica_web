@@ -13,13 +13,10 @@ class PacienteService {
 
     async create( pessoaData: CreatePessoa, prontuarioData: CreateProntuario): Promise<object> {
         try {
-            console.log("asdasds")
-            console.log(pessoaData.data_nascimento)
             let pessoa = await database.default.db[PESSOA_MODEL].findOne({
                 where: { telefone: pessoaData.telefone}
             });
             if (!pessoa) {
-                console.log("asdsdsdsdsdsdasds")
                 pessoa = await database.default.db[PESSOA_MODEL].create(pessoaData, { transaction: this.transaction });
             }
             let prontuario = await database.default.db[PRONTUARIO_MODEL].create(prontuarioData, { transaction: this.transaction });
@@ -44,33 +41,67 @@ class PacienteService {
         }
     }
 
-    async list(model: string): Promise<object[]> {
+    async list(): Promise<object[]> {
         try {
-            const result = await database.default.db[model].findAll();
-
+            const result = await database.default.db[PACIENTE_MODEL].findAll();
             return result;
         } catch (err: any) {
             throw err;
         }
     }
 
-    async getById(model: string, id: number): Promise<object> {
+    async getByCpf(cpf: string): Promise<object> {
         try {
-            const result = await database.default.db[model].findByPk(id);
-
-            return result;
-        } catch (err: any) {
-            throw err;
-        }
-    }
-
-    async delete(model: string, filters: object): Promise<void> {
-        try {
-            await database.default.db[model].destroy({
-                where: {
-                    ...filters
-                }
+            let result = Object
+            console.log(cpf)
+            let pessoa = await database.default.db[PESSOA_MODEL].findOne({
+                where: { cpf: cpf}
             });
+
+            if (pessoa) {
+                result = await database.default.db[PACIENTE_MODEL].findOne({
+                    where: {id: pessoa.id},
+                    include: [
+                        {
+                            model: database.default.db[PESSOA_MODEL],
+                            as: 'Pessoa',
+                        },
+                        {
+                            model: database.default.db[PRONTUARIO_MODEL],
+                            as: 'Prontuario',
+                        },
+                    ]
+                })
+                
+            }
+            
+
+            return result;
+        } catch (err: any) {
+            throw err;
+        }
+    }
+
+    async delete(cpf: string): Promise<void> {
+        try {
+            console.log(cpf)
+            let pessoa = await database.default.db[PESSOA_MODEL].findOne({
+                where: { cpf: cpf}
+            });
+
+            if (pessoa) {
+                await database.default.db[PACIENTE_MODEL].destroy({
+                    where: {id:pessoa.id  }
+                });
+                await database.default.db[PRONTUARIO_MODEL].destroy({
+                    where: {id:pessoa.id  }
+                });
+                await database.default.db[PESSOA_MODEL].destroy({
+                    where: {id:pessoa.id  }
+                });
+                
+            }
+
         } catch (err: any) {
             throw err;
         }

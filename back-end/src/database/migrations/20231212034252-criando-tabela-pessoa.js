@@ -30,8 +30,11 @@ module.exports = {
                },
                telefone: {
                 type: Sequelize.STRING(150),
+                allowNull: false},
+               cpf: {
+                type: Sequelize.STRING(150),
                 allowNull: false,
-             },
+                },
                 createdAt: {
                     type: Sequelize.DATE,
                     allowNull: false,
@@ -50,6 +53,12 @@ module.exports = {
                 fields: ['email'],
                 type: 'unique',
                 name: 'unique_email_key',
+            }, { transaction });
+
+            await queryInterface.addConstraint('Pessoa', {
+                fields: ['cpf'],
+                type: 'unique',
+                name: 'unique_cpf_key',
             }, { transaction });
 
             await transaction.commit();
