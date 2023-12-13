@@ -42,6 +42,14 @@ declare interface CreateClinica{
     cnpj: number;
 }
 
+declare interface CreateConsulta{
+    dataConsulta: Date;
+    horaConsulta: Data;
+    cpfPaciente: number;
+    cpfMedico: number;
+    idEspecialidade: number;
+    idClinica: number
+}
 
 //ListObjects by Filters
 
@@ -78,3 +86,12 @@ declare interface ListEspecialidadePosssibleFilters{
     valorConsulta?: number;
     percentualMedico?: number;
 }
+
+ declare interface ListConsultaPosssibleFilters{
+    dataConsulta?: Date;
+    horaConsulta?: Data;
+    cpfPaciente?: number;
+    cpfMedico?: number;
+    idEspecialidade?: number;
+    idClinica?: number
+ }
