@@ -12,5 +12,8 @@ router.use('/paciente', pacienteRouter);
 router.use('/endereco', enderecoRouter);
 router.use('/especialidade', enderecoRouter);
 router.use('/clinica', clinicaRouter);
+router.use('/consulta', clinicaRouter);
+router.use('/medico', clinicaRouter);
+router.use('/funcionario', clinicaRouter);
 
 export default router;
