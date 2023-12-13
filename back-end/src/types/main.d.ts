@@ -53,3 +53,15 @@ declare interface ListClinicaPosssibleFilters{
     telefone?: number;
     cnpj?: number;
 }
+
+declare interface CreateFuncionario{
+    salario: number;
+    idCargo: number;
+    idClinica: number;
+}
+
+declare interface ListFuncionarioPosssibleFilters{
+    salario?: number;
+    idCargo?: number;
+    idClinica?: number;
+}
