@@ -2,25 +2,22 @@ import * as database from '../database/index';
 import * as repositoryHelper from '../helper/repository.helper';
 import { Transaction } from 'sequelize';
 
-    const PESSOA_MODEL ="Pessoa"
+    const ENDERECO_MODEL ="Endereco"
     const PRONTUARIO_MODEL ="Prontuario"
     const PACIENTE_MODEL ="Paciente"
 
-class PacienteService {
+class EnderecoPessoalService {
     protected transaction!: Transaction
 
     constructor() {}
 
-    async create( pessoaData: CreatePessoa): Promise<object> {
+    async create( enderecoData: CreateEnderecoPessoal): Promise<object> {
         try {
-            let pessoa = await database.default.db[PESSOA_MODEL].findOne({
-                where: { telefone: pessoaData.telefone}
-            });
-            if (!pessoa) {
-                pessoa = await database.default.db[PESSOA_MODEL].create(pessoaData, { transaction: this.transaction });
-            }
             
-            return pessoa; 
+            let endereco = await database.default.db[ENDERECO_MODEL].create(enderecoData, { transaction: this.transaction });
+            
+            return endereco; 
+
         } catch (err: any) {
             throw err;
         }
@@ -39,41 +36,42 @@ class PacienteService {
 
     async list(): Promise<object[]> {
         try {
-            const result = await database.default.db[PESSOA_MODEL].findAll();
+            const result = await database.default.db[ENDERECO_MODEL].findAll();
             return result;
         } catch (err: any) {
             throw err;
         }
     }
 
-    async getByCpf(cpf: string): Promise<object> {
+    async getByFilters(filters: object): Promise<object> {
         try {
             
-            let result = Object
-            console.log(cpf)
-            let pessoa = await database.default.db[PESSOA_MODEL].findOne({
-                where: { cpf: cpf}
+            let result = await database.default.db[ENDERECO_MODEL].findOne({
+                where: { ...filters}
             });
 
-            return pessoa;
+            return result;
         } catch (err: any) {
             throw err;
         }
     }
 
-    async delete(cpf: string): Promise<void> {
+    async delete(filters: ListEnderecoPosssibleFilters): Promise<void> {
         try {
-
-
-            await database.default.db[PESSOA_MODEL].destroy({
-                where: {cpf:cpf }
+            
+            await database.default.db[ENDERECO_MODEL].destroy({
+                where: {...filters  }
             });
-     
 
         } catch (err: any) {
             throw err;
         }
+    }
+
+    async update(enderecoData: CreateEnderecoPessoal,filters: ListEnderecoPosssibleFilters){
+        let result = await database.default.db[ENDERECO_MODEL].update({enderecoData},{where:filters})
+        return result
     }
 }
 
-export default PacienteService;
+export default EnderecoPessoalService;

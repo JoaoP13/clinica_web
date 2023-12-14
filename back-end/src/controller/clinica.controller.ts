@@ -16,14 +16,22 @@ class ClinicaController {
 
     async create(): Promise<object[] | object> {
         try {
+            const enderecoModel: CreateEndereco = {
+                logradouro: this.request.body.logradouro,
+                complemento: this.request.body.complemento,
+                bairro: this.request.body.bairro,
+                cidade: this.request.body.cidade,
+                estado: this.request.body.estado,
+                nomeEndereco: this.request.body.nomeEndereco
+            }
             const clinicaModel: CreateClinica = {
-                idEndereco: this.request.body.idEndereco,
                 nome: this.request.body.nome,
-                telefone: this.request.body.telefone,
+                telefone: +this.request.body.telefone,
                 cnpj: this.request.body.cnpj,
             }
-            
-            const result = await this.clinicaService.create(clinicaModel);
+            console.log(enderecoModel.bairro)
+            console.log(clinicaModel.cnpj)
+            const result = await this.clinicaService.create(clinicaModel,enderecoModel);
 
             return result;
         } catch (err: any) {

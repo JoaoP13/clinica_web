@@ -2,8 +2,9 @@ import { Model } from 'sequelize';
 
 interface EspecialidadeAttributes {
     id: number;
-    idProntuario: number;
-    idPessoa: number;
+    nome: string;
+    valorConsulta: number;
+    percentualMedico: number;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
@@ -13,24 +14,13 @@ module.exports = (sequelize: any, DataTypes: any) => {
     class Especialidade extends Model<EspecialidadeAttributes>
         implements EspecialidadeAttributes {
         id!: number;
-        idProntuario!: number;
-        idPessoa!: number;
+        nome!: string;
+        valorConsulta!: number;
+        percentualMedico!: number;
         createdAt!: Date;
         updatedAt!: Date;
         deletedAt!: Date;
 
-        static associate(models: any) {
-            Especialidade.belongsTo(models.Pessoa, {
-                foreignKey: 'idPessoa',
-                as: 'Pessoa'
-            });
-
-            Especialidade.belongsTo(models.Prontuario, {
-                foreignKey: 'idProntuario',
-                as: 'Prontuario'
-            });
-
-        }
     }
 
     Especialidade.init({
@@ -40,11 +30,15 @@ module.exports = (sequelize: any, DataTypes: any) => {
             primaryKey: true,
             autoIncrement: true
         },
-        idProntuario: {
-            type: DataTypes.INTEGER,
+        nome: {
+            type: DataTypes.STRING,
             allowNull: false
         },
-        idPessoa: {
+        valorConsulta: {
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
+        percentualMedico: {
             type: DataTypes.INTEGER,
             allowNull: true
         },

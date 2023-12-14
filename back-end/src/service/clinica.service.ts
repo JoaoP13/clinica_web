@@ -1,17 +1,22 @@
+/// <reference path="../types/main.d.ts" />
 import * as database from '../database/index';
 import * as repositoryHelper from '../helper/repository.helper';
 import { Transaction } from 'sequelize';
 
     const CLINICA_MODEL ="Clinica"
+    const ENDERECO_MODEL ="Endereco"
 
 class ClinicaService {
     protected transaction!: Transaction
 
     constructor() {}
 
-    async create( clinicaData: CreateClinica): Promise<object> {
+    async create( clinicaData: CreateClinica,  enderecoData: CreateEndereco): Promise<object> {
         try {
             
+            let endereco = await database.default.db[ENDERECO_MODEL].create(enderecoData, { transaction: this.transaction });
+            clinicaData.idEndereco = endereco.id;
+            console.log(clinicaData)
             let clinica = await database.default.db[CLINICA_MODEL].create(clinicaData, { transaction: this.transaction });
             
             return clinica; 

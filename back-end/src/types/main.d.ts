@@ -36,7 +36,7 @@ declare interface CreateEspecialidade{
 }
 
 declare interface CreateClinica{
-    idEndereco: number;
+    idEndereco?: number;
     nome: string;
     telefone: number;
     cnpj: number;
@@ -49,6 +49,20 @@ declare interface CreateConsulta{
     cpfMedico: number;
     idEspecialidade: number;
     idClinica: number
+}
+
+declare interface CreateEnderecoPessoal{
+    idPessoa: Date;
+    idEndereco: Data;
+}
+
+declare interface CreateMedico{
+    idEspecialidade: number;
+    crm: number;
+}
+
+declare interface CreateCargo{
+    nome: string;
 }
 
 //ListObjects by Filters
@@ -96,12 +110,8 @@ declare interface ListEspecialidadePosssibleFilters{
     idClinica?: number
  }
 
-declare interface CreateMedico{
-    idEspecialidade: number;
-    crm: number;
-}
-
 declare interface ListMedicoPosssibleFilters{
     idEspecialidade?: number;
     crm?: number;
 }
+
