@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+
+/*
 import { NextFunction, Request, Response } from 'express';
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import UserService from '../src/database/postgresql/services/user.service';
@@ -64,3 +66,4 @@ export const authMiddleware = async (
 
     next();
 };
+*/

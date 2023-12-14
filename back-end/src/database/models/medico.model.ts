@@ -22,7 +22,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
         static associate(models: any) {
             Medico.belongsTo(models.Especialidade, {
-                foreignKey: 'id_especialidade',
+                foreignKey: 'id',
                 as: 'especialidade'
             });
         }
