@@ -10,7 +10,6 @@ import { listarConsultas } from "../../services/consulta";
 import ResponsiveAppBar from "../../components/appBar/appBar";
 import Swal from "sweetalert2";
 import GenericTable from "../../components/genericTable/genericTable";
-import CustomModal from "../../components/modal/modal";
 import "dayjs/locale/pt-br";
 
 import { isMobile } from "react-device-detect";
@@ -18,11 +17,6 @@ import { isMobile } from "react-device-detect";
 export default function ListarConsultas() {
   const [consultas, setconsultas] = React.useState<Array<Object>>([]);
   const [backDropOpen, setBackDropOpen] = React.useState<boolean>(false);
-  const [modalOpen, setModalOpen] = React.useState<boolean>(false);
-
-  function handleOpenModal() {
-    setModalOpen(!modalOpen);
-  }
 
   useEffect(() => {
     async function listar() {

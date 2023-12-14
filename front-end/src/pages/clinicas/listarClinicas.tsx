@@ -5,51 +5,27 @@ import {
   Box,
   Backdrop,
   Typography,
-  TextField,
-  Button,
 } from "@mui/material";
 import ResponsiveAppBar from "../../components/appBar/appBar";
 import Swal from "sweetalert2";
+import { listarClinicas } from "../../services/clinica";
 import GenericTable from "../../components/genericTable/genericTable";
-import CustomModal from "../../components/modal/modal";
-import { Buffer } from "buffer";
-import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 import { isMobile } from "react-device-detect";
 
 export default function ListarClinicas() {
   const [checkIns, setCheckIns] = React.useState<Array<Object>>([]);
-  const [filters, setFilters] = React.useState<any>({});
-  const [base64, setBase64] = React.useState<string>("");
   const [backDropOpen, setBackDropOpen] = React.useState<boolean>(false);
-  const [modalOpen, setModalOpen] = React.useState<boolean>(false);
-
-  const handleChangeSearchValue = (event: any) => {
-    setFilters({
-      ...filters,
-      invoice: event.target.value,
-    });
-  };
-
-  function handleOpenModal() {
-    setModalOpen(!modalOpen);
-  }
 
   useEffect(() => {
     async function searchCheckIn() {
       setBackDropOpen(true);
   
       try {
-      //   const result = await getCheckInByFilters({
-      //     invoice: filters.invoice,
-      //     initDate: filters.initDate,
-      //     finalDate: filters.finalDate,
-      //   });
+        const result = await listarClinicas();
   
-        setCheckIns([]);
+        setCheckIns(result);
         setBackDropOpen(false);
       } catch (err: any) {
         Swal.fire({
@@ -70,7 +46,7 @@ export default function ListarClinicas() {
       {
         width: 25,
         label: "Nome",
-        dataKey: "nomeClinica",
+        dataKey: "nome",
       },
       {
         width: 25,
@@ -79,38 +55,10 @@ export default function ListarClinicas() {
       },
       {
         width: 25,
-        label: "Endereço",
-        dataKey: "endereco",
-      },
-      {
-        width: 25,
-        label: "Especialidade",
-        dataKey: "especialidade",
-      },
+        label: "CNPJ",
+        dataKey: "cnpj",
+      }
     ];
-  }
-
-  function Wrapper() {
-    return (
-      <Box>
-        <Box display="flex" justifyContent="center">
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={12} sm={12}>
-              <img
-                src={`data:'image/jpeg';base64, ${base64.slice(20)}`}
-                alt=""
-                width={"100%"}
-                height={"100%"}
-                style={{
-                  borderRadius: "10px",
-                  boxShadow: "10px 10px 5px #ccc",
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Box>
-      </Box>
-    );
   }
 
   return (
@@ -171,7 +119,7 @@ export default function ListarClinicas() {
               >
                 <GenericTable
                   canDelet={false}
-                  canViewData={true}
+                  canViewData={false}
                   rows={checkIns}
                   columns={getCheckInsHeader()}
                 ></GenericTable>
@@ -180,11 +128,6 @@ export default function ListarClinicas() {
           </Grid>
         </Box>
       </Box>
-      <CustomModal
-        open={modalOpen}
-        children={Wrapper()}
-        onClose={() => handleOpenModal()}
-      ></CustomModal>
     </div>
   );
 }
