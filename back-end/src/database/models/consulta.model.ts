@@ -5,6 +5,7 @@ interface ConsultaAttributes {
     dataConsulta: string;
     idPaciente: number;
     idEspecialidade:number;
+    idMedico:number;
     idClinica:number;
     createdAt: Date;
     updatedAt: Date;
@@ -18,6 +19,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         dataConsulta!: string;
         idPaciente!: number;
         idEspecialidade!:number;
+        idMedico!:number;
         idClinica!:number;
         createdAt!: Date;
         updatedAt!: Date;
@@ -48,6 +50,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
             allowNull: false
         },
         idEspecialidade: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        idMedico: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
