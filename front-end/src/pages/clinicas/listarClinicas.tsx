@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   CircularProgress,
   Grid,
@@ -38,36 +38,32 @@ export default function ListarClinicas() {
     setModalOpen(!modalOpen);
   }
 
-  function setPeriod(value: any) {
-    setFilters({
-      ...filters,
-      initDate: value[0] ? value[0].$d : null,
-      finalDate: value[1] ? value[1].$d : null,
-    });
-  }
-
-  async function searchCheckIn() {
-    setBackDropOpen(true);
-
-    try {
-    //   const result = await getCheckInByFilters({
-    //     invoice: filters.invoice,
-    //     initDate: filters.initDate,
-    //     finalDate: filters.finalDate,
-    //   });
-
-      setCheckIns([]);
-      setBackDropOpen(false);
-    } catch (err: any) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: err.message,
-      });
-
-      setBackDropOpen(false);
+  useEffect(() => {
+    async function searchCheckIn() {
+      setBackDropOpen(true);
+  
+      try {
+      //   const result = await getCheckInByFilters({
+      //     invoice: filters.invoice,
+      //     initDate: filters.initDate,
+      //     finalDate: filters.finalDate,
+      //   });
+  
+        setCheckIns([]);
+        setBackDropOpen(false);
+      } catch (err: any) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.message,
+        });
+  
+        setBackDropOpen(false);
+      }
     }
-  }
+
+    searchCheckIn();
+  }, []);
 
   function getCheckInsHeader() {
     return [

@@ -6,16 +6,12 @@ import {
   Backdrop,
   TextField,
   Typography,
-  InputAdornment,
-  IconButton,
   Button,
 } from "@mui/material";
 import CustomDateTimePicker from "../../components/dateTimePicker/dateTimePicker";
 import ResponsiveAppBar from "../../components/appBar/appBar";
-import { createUser } from "../../services/user";
+import { criarConsulta } from "../../services/consulta";
 import { useNavigate } from "react-router-dom";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { isMobile } from "react-device-detect";
 import Swal from "sweetalert2";
 
@@ -24,7 +20,6 @@ export default function AddConsulta() {
   const [cpf_paciente, setName] = React.useState<string | null>(null);
   const [cpf_medico, setEmail] = React.useState<string | null>(null);
   const [data, setData] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [idClinica, setIdClinica] = useState("");
   const [idEspecialidade, setIdEspecialidade] = useState("");
 
@@ -42,48 +37,31 @@ export default function AddConsulta() {
     setIdEspecialidade(event.target.value);
   }
 
-  const handleChangePassword = (event: any) => {
-    setData(event.target.value);
-  };
-
   const handleChangeIdClinica = (event: any) => {
     setIdClinica(event.target.value);
   };
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
+  const handleChangeDate = (event: any) => {
+    setData(event);
   };
 
   async function saveUser() {
-    if (data !== idClinica) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "As senhas não correspondem. ",
-      });
-
-      return;
-    }
     setBackDropOpen(true);
 
     try {
-      await createUser({
-        fullName: cpf_paciente,
-        data,
-        cpf_medico,
+      await criarConsulta({
+        idPaciente: cpf_paciente,
+        idMedico: cpf_medico,
+        idClinica: cpf_medico,
+        idEspecialidade: cpf_medico,
+        dataConsulta: data
       });
 
       setBackDropOpen(false);
 
       Swal.fire({
         title: "Sucesso!",
-        text: "Usuário criado com sucesso!",
+        text: "Consulta criada com sucesso!",
         icon: "success",
         showConfirmButton: false,
         position: "center",
@@ -155,7 +133,8 @@ export default function AddConsulta() {
                 <Grid item xs={6} md={6} sm={6}>
                   <TextField
                     id="standard-basic"
-                    label="CPF Paciente"
+                    label="ID Paciente"
+                    type="number"
                     variant="outlined"
                     color="success"
                     value={cpf_paciente}
@@ -168,7 +147,8 @@ export default function AddConsulta() {
                 <Grid item xs={6} md={6} sm={6}>
                   <TextField
                     id="standard-basic"
-                    label="CPF Médico"
+                    label="ID Médico"
+                    type="number"
                     variant="outlined"
                     color="success"
                     value={cpf_medico}
@@ -181,7 +161,7 @@ export default function AddConsulta() {
               </Grid>
               <Grid container spacing={2} sx={{ marginTop: "1vh" }}>
                 <Grid item xs={6} md={6} sm={6}>
-                  <CustomDateTimePicker valueProp={data} disabled={false} onChange={(el: any) => console.log(el)
+                  <CustomDateTimePicker valueProp={data} disabled={false} onChange={(el: any) => handleChangeDate(el)
                   }></CustomDateTimePicker>
                 </Grid>
                 <Grid item xs={6} md={6} sm={6}>
