@@ -2,10 +2,10 @@ import { Model } from 'sequelize';
 
 interface EnderecoAttributes {
     id: number;
-    nome: string;
+    nomeEndereco: string;
     logradouro: string;
     complemento: string;
-    bairo: string;
+    bairro: string;
     cidade: string;
     estado: string;
     createdAt: Date;
@@ -17,10 +17,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
     class Endereco extends Model<EnderecoAttributes>
         implements EnderecoAttributes {
         id!: number;
-        nome!: string;
+        nomeEndereco!: string;
         logradouro!: string;
         complemento!: string;
-        bairo!: string;
+        bairro!: string;
         cidade!: string;
         estado!: string;
         createdAt!: Date;
@@ -29,7 +29,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
         static associate(models: any) {
             Endereco.hasMany(models.Clinica, {
-                foreignKey: 'id_endereco',
+                foreignKey: 'id',
                 as: 'endereco'
             });
         }
@@ -42,7 +42,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
             primaryKey: true,
             autoIncrement: true
         },
-        nome: {
+        nomeEndereco: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -54,7 +54,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        bairo: {
+        bairro: {
             type: DataTypes.STRING,
             allowNull: false
         },

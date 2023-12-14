@@ -2,25 +2,22 @@ import * as database from '../database/index';
 import * as repositoryHelper from '../helper/repository.helper';
 import { Transaction } from 'sequelize';
 
-    const PESSOA_MODEL ="Pessoa"
+    const CARGO_MODEL ="Cargo"
     const PRONTUARIO_MODEL ="Prontuario"
     const PACIENTE_MODEL ="Paciente"
 
-class PacienteService {
+class CargoService {
     protected transaction!: Transaction
 
     constructor() {}
 
-    async create( pessoaData: CreatePessoa): Promise<object> {
+    async create( cargoData: CreateCargo): Promise<object> {
         try {
-            let pessoa = await database.default.db[PESSOA_MODEL].findOne({
-                where: { telefone: pessoaData.telefone}
-            });
-            if (!pessoa) {
-                pessoa = await database.default.db[PESSOA_MODEL].create(pessoaData, { transaction: this.transaction });
-            }
             
-            return pessoa; 
+            let cargoDataModel = await database.default.db[CARGO_MODEL].create(cargoData, { transaction: this.transaction });
+            
+            return cargoDataModel; 
+
         } catch (err: any) {
             throw err;
         }
@@ -28,6 +25,7 @@ class PacienteService {
 
     async setTransaction() {
         try {
+
             const newTransaction = await repositoryHelper.default.getTransaction();
 
             return newTransaction;
@@ -39,41 +37,42 @@ class PacienteService {
 
     async list(): Promise<object[]> {
         try {
-            const result = await database.default.db[PESSOA_MODEL].findAll();
+            const result = await database.default.db[CARGO_MODEL].findAll();
             return result;
         } catch (err: any) {
             throw err;
         }
     }
 
-    async getByCpf(cpf: string): Promise<object> {
+    async getByFilters(filters: object): Promise<object> {
         try {
             
-            let result = Object
-            console.log(cpf)
-            let pessoa = await database.default.db[PESSOA_MODEL].findOne({
-                where: { cpf: cpf}
+            let result = await database.default.db[CARGO_MODEL].findOne({
+                where: { ...filters}
             });
 
-            return pessoa;
+            return result;
         } catch (err: any) {
             throw err;
         }
     }
 
-    async delete(cpf: string): Promise<void> {
+    async delete(idName: string): Promise<void> {
         try {
-
-
-            await database.default.db[PESSOA_MODEL].destroy({
-                where: {cpf:cpf }
+            
+            await database.default.db[CARGO_MODEL].destroy({
+                where: { id:idName }
             });
-     
 
         } catch (err: any) {
             throw err;
         }
+    }
+
+    async update(enderecoData: CreateEnderecoPessoal,filters: ListEnderecoPosssibleFilters){
+        let result = await database.default.db[CARGO_MODEL].update({enderecoData},{where:filters})
+        return result
     }
 }
 
-export default PacienteService;
+export default CargoService;

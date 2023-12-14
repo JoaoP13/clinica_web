@@ -17,10 +17,11 @@ class EspecialidadeController {
 
     async create(): Promise<object[] | object> {
         try {
+            console.log(this.request.body.nome)
             const especialidadeModel: CreateEspecialidade = {
                 nome: this.request.body.nome,
-                valorConsulta: this.request.body.email,
-                percentualMedico: this.request.body.data_nascimento,
+                valorConsulta: this.request.body.valorConsulta,
+                percentualMedico: this.request.body.percentualMedico,
             }
             
             const result = await this.especialidadeService.create(especialidadeModel);

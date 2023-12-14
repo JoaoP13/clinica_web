@@ -3,7 +3,9 @@ import { Model } from 'sequelize';
 interface ClinicaAttributes {
     id: number;
     nome: string;
-    id_endereco: number;
+    idEndereco: number;
+    telefone: number;
+    cnpj:number;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
@@ -14,19 +16,17 @@ module.exports = (sequelize: any, DataTypes: any) => {
         implements ClinicaAttributes {
         id!: number;
         nome!: string;
-        id_endereco!: number;
+        idEndereco!: number;
+        telefone!: number;
+        cnpj!:number;
         createdAt!: Date;
         updatedAt!: Date;
         deletedAt!: Date;
 
         static associate(models: any) {
-            Clinica.hasMany(models.Funcionario, {
-                foreignKey: 'id_clinica',
-                as: 'funcionario'
-            });
 
             Clinica.belongsTo(models.Endereco, {
-                foreignKey: 'id_endereco',
+                foreignKey: 'id',
                 as: 'endereco'
             });
         }
@@ -43,7 +43,15 @@ module.exports = (sequelize: any, DataTypes: any) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        id_endereco: {
+        idEndereco: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        telefone: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        cnpj: {
             type: DataTypes.INTEGER,
             allowNull: false
         },

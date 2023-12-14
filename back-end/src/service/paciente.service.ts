@@ -52,6 +52,7 @@ class PacienteService {
 
     async getByCpf(cpf: string): Promise<object> {
         try {
+            
             let result = Object
             console.log(cpf)
             let pessoa = await database.default.db[PESSOA_MODEL].findOne({
