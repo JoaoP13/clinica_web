@@ -1,19 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { get, post, patch } from './api';
+import { get } from './api';
 import RequestError from './errors/RequestError';
 
-async function criarConsulta(payload: any) {
-    const result: any = await post('/api/consulta/create', payload);
-
-    if (result?.status === 400 || result?.status === 401 || result?.status === 500) {
-        throw new RequestError(result.message, result.status);
-    }
-
-    return result;
-}
-
-async function listarConsultas() {
-    const result: any = await get('/api/consulta/get');
+async function listarMedicos() {
+    const result: any = await get('/api/medico/get');
 
     if (result?.status === 400 || result?.status === 401 || result?.status === 500) {
         throw new RequestError(result.message, result.status);
@@ -23,6 +13,5 @@ async function listarConsultas() {
 }
 
 export {
-    criarConsulta,
-    listarConsultas,
+    listarMedicos,
 };
