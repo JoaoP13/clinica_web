@@ -1,6 +1,6 @@
 /// <reference path="../types/main.d.ts" />
 import express from 'express';
-import ConsultaController from '../controller/endereco.controller';
+import ConsultaController from '../controller/consulta.controller';
 
 
 const enderecoRouter: express.Router = express.Router();

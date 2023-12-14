@@ -27,10 +27,6 @@ module.exports = {
                 type: Sequelize.DATE,
                 allowNull: false,
             },
-            horarioConsulta: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-            },
             idPaciente: {
               type: Sequelize.INTEGER,
               references: {

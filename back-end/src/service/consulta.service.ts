@@ -6,7 +6,7 @@ import { Transaction } from 'sequelize';
     const PRONTUARIO_MODEL ="Prontuario"
     const PACIENTE_MODEL ="Paciente"
 
-class EnderecoService {
+class ConsultaService {
     protected transaction!: Transaction
 
     constructor() {}
@@ -42,11 +42,11 @@ class EnderecoService {
         }
     }
 
-    async getByFilters(filters: ListConsultaPosssibleFilters): Promise<object> {
+    async getByFilters(): Promise<object> {
         try {
             
             let result = await database.default.db[CONSULTA_MODEL].findOne({
-                where: { ...filters}
+                where: { }
             });
 
             return result;
@@ -55,11 +55,11 @@ class EnderecoService {
         }
     }
 
-    async delete(filters: ListConsultaPosssibleFilters): Promise<void> {
+    async delete(): Promise<void> {
         try {
             
             await database.default.db[CONSULTA_MODEL].destroy({
-                where: {...filters  }
+                where: {}
             });
 
         } catch (err: any) {
@@ -67,10 +67,10 @@ class EnderecoService {
         }
     }
 
-    async update(enderecoData: CreateConsulta,filters: ListConsultaPosssibleFilters){
-        let result = await database.default.db[CONSULTA_MODEL].update({enderecoData},{where:filters})
+    async update(){
+        let result = await database.default.db[CONSULTA_MODEL].update()
         return result
     }
 }
 
-export default EnderecoService;
+export default ConsultaService;

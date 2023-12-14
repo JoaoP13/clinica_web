@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+/*import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import ValidatorError from '../../error/ValidatorError';
 import BasicController from './basic.controller';
@@ -79,3 +79,4 @@ class LoginController extends BasicController {
 }
 
 export default LoginController;
+*/

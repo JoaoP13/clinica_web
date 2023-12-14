@@ -1,76 +1,109 @@
-import * as database from '../database/index';
-import * as repositoryHelper from '../helper/repository.helper';
-import { Transaction } from 'sequelize';
+/// <reference path="../types/main.d.ts" />
+import { Request, Response } from 'express';
+import ConsultaService from '../service/consulta.service';
+import { DATE } from 'sequelize';
 
-    const CONSULTA_MODEL = "Consulta"
-    const PRONTUARIO_MODEL ="Prontuario"
-    const PACIENTE_MODEL ="Paciente"
+class ConsultaController {
+    consultaService: ConsultaService;
+    request: Request;
+    response: Response;
+    model!: string;
 
-class EnderecoService {
-    protected transaction!: Transaction
-
-    constructor() {}
-
-    async create( enderecoData: CreateConsulta): Promise<object> {
-        try {
-            
-            let endereco = await database.default.db[CONSULTA_MODEL].create(enderecoData, { transaction: this.transaction });
-            
-            return endereco; 
-        } catch (err: any) {
-            throw err;
-        }
+    public constructor(req: Request, res: Response) {
+        this.consultaService = new ConsultaService();
+        this.request = req;
+        this.response = res;
     }
 
-    async setTransaction() {
+    async create(): Promise<object[] | object> {
         try {
-            const newTransaction = await repositoryHelper.default.getTransaction();
-
-            return newTransaction;
-        } catch (err: any) {
-            // Tratar os erros na requisição do front
-            throw err;
-        }
-    }
-
-    async list(): Promise<object[]> {
-        try {
-            const result = await database.default.db[CONSULTA_MODEL].findAll();
-            return result;
-        } catch (err: any) {
-            throw err;
-        }
-    }
-
-    async getByFilters(filters: ListConsultaPosssibleFilters): Promise<object> {
-        try {
+            const consultaModel: CreateConsulta = {
+                dataConsulta: this.request.body.dataConsulta,
+                cpfMedico: this.request.body.cpfMedico,
+                cpfPaciente: this.request.body.cpfPaciente,
+                idPaciente:this.request.body.idPaciente,
+                idClinica: this.request.body.idClinica,
+                idEspecialidade: this.request.body.idEspecialidade
+            }
             
-            let result = await database.default.db[CONSULTA_MODEL].findOne({
-                where: { ...filters}
-            });
+            const result = await this.consultaService.create(consultaModel);
 
             return result;
         } catch (err: any) {
-            throw err;
+            
+            return {
+                errors: err.erros || [],
+                message: err.message,
+                status: 400,
+                errorType: err?.errorType
+            };
         }
     }
 
-    async delete(filters: ListConsultaPosssibleFilters): Promise<void> {
+    async list(): Promise<object[] | object> {
+        try {
+            const result = await this.consultaService.list();
+
+            return result;
+        } catch (err: any) {
+            
+            return {
+                errors: err.erros || [],
+                message: err.message,
+                status: 400,
+                errorType: err?.errorType
+            };
+        }
+    }
+    async getByFilters(): Promise<object[] | object> {
+
+        try {
+           
+            const result = await this.consultaService.getByFilters();
+
+            return result;
+        } catch (err: any) {
+            
+            return {
+                errors: err.erros || [],
+                message: err.message,
+                status: 400,
+                errorType: err?.errorType
+            };
+        }
+    }
+    async update(): Promise<object[] | object> {
         try {
             
-            await database.default.db[CONSULTA_MODEL].destroy({
-                where: {...filters  }
-            });
+            
+            const result = await this.consultaService.update();
 
+            return result;
         } catch (err: any) {
-            throw err;
+            
+            return {
+                errors: err.erros || [],
+                message: err.message,
+                status: 400,
+                errorType: err?.errorType
+            };
         }
     }
+    async delete(): Promise<void | object> {
+        try {
+            
+            
+            const result = await this.consultaService.delete();
+            
+        } catch (err: any) {
 
-    async update(enderecoData: CreateConsulta,filters: ListConsultaPosssibleFilters){
-        let result = await database.default.db[CONSULTA_MODEL].update({enderecoData},{where:filters})
-        return result
+            return {
+                errors: err.erros || [],
+                message: err.message,
+                status: 400
+            };
+        }
     }
 }
 
-export default EnderecoService;
+export default ConsultaController;
