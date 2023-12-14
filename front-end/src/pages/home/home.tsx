@@ -121,22 +121,22 @@ function PreCollect() {
     return [
       {
         width: 5,
-        label: "N° pedido",
+        label: "Nome Paciente",
         dataKey: "numero_pedido",
       },
       {
         width: 5,
-        label: "Código cliente",
+        label: "Nome Medico",
         dataKey: "cod_cliente",
       },
       {
         width: 80,
-        label: "Cliente",
+        label: "Clinica",
         dataKey: "cliente",
       },
       {
         width: 45,
-        label: "Status",
+        label: "Data / Hora",
         dataKey: "status",
       },
     ];
