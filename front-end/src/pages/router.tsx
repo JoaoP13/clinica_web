@@ -2,12 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./login/login";
 import NotFound from "./notFound/notFound";
-// import UserForm from "./user/userForm";
-// import Home from "./home/home";
-// import Collect from "./newCollect/collect";
-// import Delivery from "./delivery/delivery";
-// import CheckInReport from "./reports/checkInReport";
-// import AddCollect from "./newCollect/add/addCollect";
+import AddConsulta from "./consulta/addConsulta";
+import Home from "./home/home";
+import ListarConsultas from "./consulta/listarConsultas";
+import ListarClinicas from "./clinicas/listarClinicas";
+import ListarMedicos from "./medicos/listarMedicos";
 import Unauthorized from "./unauthorized/unauthorized";
 import PrivateRoutes from "./utils/privateRoute";
 import PermissionPrivateRoutes from "./utils/permissionPrivateRoute";
@@ -32,13 +31,17 @@ const App = () => {
           >
           </Route>
 
-          {/* <Route path="/home" element={<Home />}></Route> */}
           {/* <Route path="/preCollect" element={<PreCollect />}></Route> */}
           {/* <Route path="/collect" element={<Collect />}></Route>
           <Route path="/collect/add" element={<AddCollect />}></Route>
           <Route path="/delivery" element={<Delivery />}></Route>
-          <Route path="/reports/checkIn" element={<CheckInReport />}></Route> */}
+        <Route path="/reports/checkIn" element={<CheckInReport />}></Route> */}
         </Route>
+        <Route path="/home" element={<Home />}></Route>
+        <Route path="/adicionarConsulta" element={<AddConsulta />}></Route>
+        <Route path="/listarConsultas" element={<ListarConsultas />}></Route>
+        <Route path="/listarClinicas" element={<ListarClinicas />}></Route>
+        <Route path="/listarMedicos" element={<ListarMedicos />}></Route>
       </Routes>
     </Router>
   );
