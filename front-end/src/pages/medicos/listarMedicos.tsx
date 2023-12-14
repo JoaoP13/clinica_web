@@ -119,7 +119,7 @@ export default function ListarMedicos() {
               >
                 <GenericTable
                   canDelet={false}
-                  canViewData={true}
+                  canViewData={false}
                   rows={checkIns}
                   columns={getCheckInsHeader()}
                 ></GenericTable>
