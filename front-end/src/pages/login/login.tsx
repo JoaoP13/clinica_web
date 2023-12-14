@@ -4,9 +4,8 @@ import { TextField, Button, CircularProgress, Grid, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import login from "../../services/login";
-import backgroundImage from "../../assets/img/fundo.jpeg";
-import backgroundImageOverlap from "../../assets/img/lareral.jpg";
-import truckImage from "../../assets/img/nome.png";
+import backgroundImage from "../../assets/img/meio-inferior.jpg";
+import backgroundImageOverlap from "../../assets/img/meio-superior.jpg";
 import { isMobile } from "react-device-detect";
 
 function Login() {
@@ -28,10 +27,10 @@ function Login() {
     setWrongCredentials(false);
 
     try {
-      user = await login(email, password);
+    //   user = await login(email, password);
 
       navigate("/home");
-      setUser(user);
+    //   setUser(user);
       setLoading(false);
     } catch (error: any) {
       console.log(error);
@@ -62,12 +61,12 @@ function Login() {
       ></Box>
       <Box
         width={isMobile ? "70%" : "35%"}
-        height={"68%"}
+        height={"80%"}
         sx={{
           boxShadow: 20,
           borderRadius: "25px",
           position: "absolute",
-          top: isMobile ? "10%" : "6%",
+          top: "10%",
           left: isMobile ? "17%" : "32%",
         }}
       >
@@ -118,22 +117,6 @@ function Login() {
                   justifyContent="center"
                   alignItems="center"
                 >
-                  <img
-                    src={truckImage}
-                    alt="truck"
-                    width={"70%"}
-                    height={"100%"}
-                  ></img>
-                </Grid>
-              </Grid>
-              <Grid container spacing={0}>
-                <Grid
-                  item
-                  xs={12}
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                >
                   <Box
                     sx={{
                       width: "80%",
@@ -153,7 +136,8 @@ function Login() {
                             variant="standard"
                             sx={{
                               width: "100%",
-                              marginBottom: "20px",
+                              marginBottom: "3vh",
+                              marginTop: "4vh",
                             }}
                             color="success"
                             helperText={
@@ -178,7 +162,7 @@ function Login() {
                             color="success"
                             sx={{
                               width: "100%",
-                              marginBottom: "40px",
+                              marginBottom: "10vh",
                             }}
                             helperText={
                               wrongCredentials
@@ -208,9 +192,9 @@ function Login() {
                               marginLeft: "16px",
                               padding: "10px 26px",
                               fontSize: "14px",
-                              backgroundColor: "#22AADB",
+                              backgroundColor: "#03C988",
                               ":hover": {
-                                backgroundColor: "#22AADB",
+                                backgroundColor: "#03C988",
                               },
                             }}
                           >
