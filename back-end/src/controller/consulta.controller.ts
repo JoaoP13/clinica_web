@@ -17,12 +17,13 @@ class ConsultaController {
 
     async create(): Promise<object[] | object> {
         try {
+        
             const consultaModel: CreateConsulta = {
-                dataConsulta: this.request.body.dataConsulta,
-                idMedico: this.request.body.idMedico,
-                idPaciente:this.request.body.idPaciente,
-                idClinica: this.request.body.idClinica,
-                idEspecialidade: this.request.body.idEspecialidade
+                dataConsulta: this.request.body.params.dataConsulta,
+                idMedico: this.request.body.params.idMedico,
+                idPaciente:this.request.body.params.idPaciente,
+                idClinica: this.request.body.params.idClinica,
+                idEspecialidade: this.request.body.params.idEspecialidade
             }
             
             const result = await this.consultaService.create(consultaModel);
