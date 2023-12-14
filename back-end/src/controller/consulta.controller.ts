@@ -19,8 +19,7 @@ class ConsultaController {
         try {
             const consultaModel: CreateConsulta = {
                 dataConsulta: this.request.body.dataConsulta,
-                cpfMedico: this.request.body.cpfMedico,
-                cpfPaciente: this.request.body.cpfPaciente,
+                idMedico: this.request.body.idMedico,
                 idPaciente:this.request.body.idPaciente,
                 idClinica: this.request.body.idClinica,
                 idEspecialidade: this.request.body.idEspecialidade

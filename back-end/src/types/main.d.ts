@@ -44,8 +44,7 @@ declare interface CreateClinica{
 
 declare interface CreateConsulta{
     dataConsulta: Date;
-    cpfPaciente: number;
-    cpfMedico: number;
+    idMedico: number;
     idPaciente: number;
     idEspecialidade: number;
     idClinica: number
